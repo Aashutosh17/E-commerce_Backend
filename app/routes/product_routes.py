@@ -39,9 +39,7 @@ async def get_product_by_id(product_id: str):
 
 # Update product
 @router.put("/products/{product_id}")
-async def update_product(product_id: str, product_data: Product):
-    print("Received ID:", product_id)
-    print("Received data:", product_data)
+async def update_product(product_id: str, product_data: Product, email: str = Depends(decode_access_token)):
 
     if not ObjectId.is_valid(product_id):
         raise HTTPException(400, "Invalid ID format!")
@@ -58,11 +56,12 @@ async def update_product(product_id: str, product_data: Product):
 
 # Delete product
 @router.delete("/products/{product_id}")
-async def delete_product(product_id:str):
+async def delete_product(product_id:str, email: str = Depends(decode_access_token)):
     if not ObjectId.is_valid(product_id):
         raise HTTPException(400, "Invalid ID Format!")
 
     result = await db["products"].delete_one({"_id":ObjectId(product_id)})
+
     if result.deleted_count == 0:
         raise HTTPException(404, "Product not found!")
 
