@@ -1,9 +1,8 @@
 from http.client import HTTPException
-
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from app.models.user_model import UserCreate
 from app.database.connection import db
-from app.core.jwt import create_access_token
+from app.core.jwt import create_access_token, decode_access_token
 from app.core.security import hash_password
 import bcrypt
 router = APIRouter()
@@ -29,3 +28,12 @@ async def signin(user:UserCreate):
     token = create_access_token({"email": user.email})
     return {"access_token": token, "token_type": "bearer"}
 
+@router.get("/me")
+async def get_me (email: str = Depends(decode_access_token)):
+    user = await db['users'].find_one({"email": email})
+    if not user:
+        raise HTTPException(status_code = 404, detail= 'User not Found!')
+    return{
+        "username" : user["username"],
+        "email" : user["email"]
+    }
