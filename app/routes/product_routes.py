@@ -1,14 +1,16 @@
 from bson import ObjectId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from app.models.product_model import Product
 from app.database.connection import db
+from app.core.jwt import decode_access_token
 
 router = APIRouter()
 
 # Add product
 @router.post("/products")
-async def add_product(product: Product):
+async def add_product(product: Product, email: str = Depends(decode_access_token)):
     product_dict = product.model_dump()
+    product_dict["created_by"] = email
     result = await db["products"].insert_one(product_dict)
     return {"message": "Product added", "id": str(result.inserted_id)}
 
