@@ -1,40 +1,23 @@
-## 🛍️ FastAPI E-commerce Backend
-
-This is a real-world, secure, and scalable E-commerce backend API built using **FastAPI** and **MongoDB**, following clean architecture, Git workflows, and production-ready practices.
-
+## FastAPI E-commerce Backend
 ---
-
-## 🚀 Tech Stack
-
-- **Backend Framework:** FastAPI (async + high performance)
-- **Database:** MongoDB (NoSQL)
-- **ODM:** Motor (async MongoDB driver)
-- **Auth:** JWT (JSON Web Tokens)
-- **Password Hashing:** bcrypt
-- **Environment Management:** dotenv
-- **Dependency Management:** pip + virtualenv
-- **API Testing:** Swagger UI, Postman
-
----
-## ✅ Features
-
-### 👤 Authentication
+## Features
+### Authentication
 - Signup with email + password
 - Login with JWT token generation
 - Password hashing using bcrypt
 
-### 🔐 Authorization
+### Authorization
 - Protected routes using JWT
 - Only logged-in users can:
   - Create, update, delete products
 
-### 📦 Products
+### Products
 - CRUD operations
 - Public GET access
 - Private access to POST, PUT, DELETE
 ---
 
-## 🔧 Getting Started
+## Getting Started
 
 ### 1. Clone the Repo
 https://github.com/Aashutosh17/E-commerce_Backend.git
@@ -58,7 +41,7 @@ Go to: http://127.0.0.1:8000/docs
 Use Swagger UI or Postman to test endpoints.
 ---
 
-### 🧠 Learning Outcomes
+### Learning Outcomes
 FastAPI fundamentals  
 MongoDB async operations  
 JWT authentication  
